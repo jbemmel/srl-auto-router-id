@@ -29,4 +29,4 @@ In this implementation, e1-1 has the lowest weight, then e1-2, etc. System MAC a
 
 ## Allocating router IDs
 Once the MST is determined, there is a root node (node connected to root edge with lowest port and/or system MAC). This root node gets ID 0 ( out of a configured range, say 1.1.0.0/22 then root=1.1.0.0/32 ). Subsequent levels get IDs according to the root port they are connected to: e1-1 = 1, e1-2 = 2, etc.
-Note that in a spine-leaf CLOS this would lead to a situation where 2 "Spines" have IDs from different levels (spine1=level 0=root, spine2=level 2) - there could be a configuration parameter to collapse disjoint layers for the purpose of ID assignment.
+Note that in a spine-leaf CLOS this could lead to a situation where 2 "Spines" have IDs from different levels (spine1=level 0=root, spine2=level 2) - there could be a configuration parameter to collapse disjoint layers for the purpose of ID assignment. Similarly, it is possible for a leaf node to become root ( e.g. leaf1 connected to spine1-4 on e1-1..e1-4 )
