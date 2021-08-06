@@ -23,3 +23,10 @@ The algorithm has 3 situations in which messages "are placed at the end of the q
 3. Receive Report on in-branch port while in FIND state
 
 These conditions can get cleared upon receipt of Initiate or Report, and basically form substates of FIND (FIND with pending Connect on port X, etc.)
+
+## Edge weights
+In this implementation, e1-1 has the lowest weight, then e1-2, etc. System MAC address serves as a tie breaker; the lower MAC ID wins.
+
+## Allocating router IDs
+Once the MST is determined, there is a root node (node connected to root edge with lowest port and/or system MAC). This root node gets ID 0 ( out of a configured range, say 1.1.0.0/22 then root=1.1.0.0/32 ). Subsequent levels get IDs according to the root port they are connected to: e1-1 = 1, e1-2 = 2, etc.
+Note that in a spine-leaf CLOS this would lead to a situation where 2 "Spines" have IDs from different levels (spine1=level 0=root, spine2=level 2) - there could be a configuration parameter to collapse disjoint layers for the purpose of ID assignment.
